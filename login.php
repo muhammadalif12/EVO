@@ -104,10 +104,10 @@
       <h1 class="h3 mb-3 fw-normal">Login</h1>
 
       <div class="form-floating mb-3">
-        <input type="text" class="form-control rounded-3" id="floatingInput" name="nisn" placeholder="NISN" required />
-        <label for="floatingInput">NISN</label>
+        <input type="text" class="form-control rounded-3" id="floatingInput" name="nomor_pengenal" placeholder="NISN/NIP" required />
+        <label for="floatingInput">NISN / NIP</label>
         <div class="invalid-feedback">
-          Masukkan NISN.
+          Masukkan NISN / NIP.
         </div>
       </div>
       <div class="form-floating mb-3">

@@ -1,19 +1,19 @@
 <?php
     session_start();
     include "connect.php";
-    $nisn = (isset($_POST['nisn'])) ? htmlentities($_POST['nisn']) : "" ;
+    $nomor_pengenal = (isset($_POST['nomor_pengenal'])) ? htmlentities($_POST['nomor_pengenal']) : "" ;
     $password = (isset($_POST['password'])) ? md5(htmlentities($_POST['password'])) : "" ;
 
     if(!empty($_POST['submit_validate'])){
-        $query = mysqli_query($conn, "SELECT * FROM tb_admin WHERE nisn = '$nisn' && password = '$password'");
+        $query = mysqli_query($conn, "SELECT * FROM tb_user WHERE nomor_pengenal = '$nomor_pengenal' && password = '$password'");
         $hasil = mysqli_fetch_array($query);
         if($hasil){
-            $_SESSION['nisn_evo'] = $nisn;
+            $_SESSION['nomor_pengenal_evo'] = $nomor_pengenal;
             $_SESSION['level_evo'] = $hasil['level'];
             header('location:../home');
         }else{ ?>
             <script>
-                alert('Username atau password yang anda masukkan salah');
+                alert('NISN, NIP atau password yang anda masukkan salah');
                 window.location='../login'
             </script>
 <?php

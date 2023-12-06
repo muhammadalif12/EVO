@@ -1,6 +1,6 @@
 <!-- <?php
 include "proses/connect.php";
-$query = mysqli_query($conn, "SELECT * FROM tb_admin WHERE nisn='$_SESSION[nisn]'");
+$query = mysqli_query($conn, "SELECT * FROM tb_user WHERE nomor_pengenal='$_SESSION[nomor_pengenal]'");
 $row = mysqli_fetch_array($query);
 ?> -->
 
@@ -38,7 +38,7 @@ $row = mysqli_fetch_array($query);
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-floating mb-3">
-                                <input disabled type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="username" value="<?php echo $_SESSION['nisn_evo'] ?>">
+                                <input disabled type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="username" value="<?php echo $_SESSION['nomor_pengenal_evo'] ?>">
                                 <label for="floatingInput">Username</label>
                                 <div class="invalid-feedback">
                                     Masukkan username.
