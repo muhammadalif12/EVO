@@ -1,8 +1,8 @@
-<!-- <?php
+<?php
 include "proses/connect.php";
-$query = mysqli_query($conn, "SELECT * FROM tb_user WHERE nomor_pengenal='$_SESSION[nomor_pengenal]'");
+$query = mysqli_query($conn, "SELECT * FROM tb_user WHERE nomor_pengenal='$_SESSION[nomor_pengenal_evo]'");
 $row = mysqli_fetch_array($query);
-?> -->
+?>
 
 <nav class="navbar navbar-expand navbar-dark bg-info">
     <div class="container-lg">
@@ -11,7 +11,7 @@ $row = mysqli_fetch_array($query);
             <ul class="navbar-nav">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <?php echo $hasil['nama']; ?>
+                        <?php echo $hasil['nomor_pengenal'] . ' / ' . $hasil['nama']; ?>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end mt-2">
                         <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#ModalUbahProfile"><i class="bi bi-person-square"></i> Profile</a></li>
@@ -99,10 +99,10 @@ $row = mysqli_fetch_array($query);
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="form-floating mb-3">
-                                <input disabled type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="username" value="<?php echo $_SESSION['username_decafe'] ?>">
-                                <label for="floatingInput">Username</label>
+                                <input disabled type="text" class="form-control" id="floatingInput" placeholder="NISN / NIP" name="nomor_pengenal" value="<?php echo $_SESSION['nomor_pengenal_evo'] ?>">
+                                <label for="floatingInput">NISN / NIP</label>
                                 <div class="invalid-feedback">
-                                    Masukkan username.
+                                    Masukkan NISN / NIP.
                                 </div>
                             </div>
                         </div>
@@ -117,8 +117,8 @@ $row = mysqli_fetch_array($query);
                         </div>
                         <div class="col-lg-4">
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="floatingInput" placeholder="No Hp" name="nohp" value="<?php echo $row['nohp'] ?>">
-                                <label for="floatingInput">No Hp</label>
+                                <input type="text" class="form-control" id="floatingInput" placeholder="Jenis Kelamin" name="nohp" value="<?php echo $row['jenis_kelamin'] ?>">
+                                <label for="floatingInput">Jenis Kelamin</label>
                                 <div class="invalid-feedback">
                                     Masukkan no hp.
                                 </div>
