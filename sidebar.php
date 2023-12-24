@@ -15,23 +15,29 @@
                         <li class="nav-item">
                             <a class="nav-link ps-2 <?php echo ((isset($_GET['x']) && $_GET['x'] == 'home') || !isset($_GET['x'])) ? 'active link-light bg-info' : 'link-dark'; ?> " aria-current="page" href="home"><i class="bi bi-house-door"></i> Home</a>
                         </li>
+                        <?php if ($hasil['level'] == 1) { ?>
+                            <li class="nav-item">
+                                <a class="nav-link ps-2 <?php echo (isset($_GET['x']) && $_GET['x'] == 'guru') ? 'active link-light bg-info' : 'link-dark'; ?>" href="guru"><i class="bi bi-person-badge"></i> Guru</a>
+                            </li>
+                        <?php } ?>
 
-                        <li class="nav-item">
-                            <a class="nav-link ps-2 <?php echo (isset($_GET['x']) && $_GET['x'] == 'guru') ? 'active link-light bg-info' : 'link-dark'; ?>" href="guru"><i class="bi bi-person-badge"></i> Guru</a>
-                        </li>
+                        <?php if ($hasil['level'] == 1 || $hasil['level'] == 2) { ?>
+                            <li class="nav-item">
+                                <a class="nav-link ps-2 <?php echo (isset($_GET['x']) && $_GET['x'] == 'kandidat') ? 'active link-light bg-info' : 'link-dark'; ?>" href="kandidat"><i class="bi bi-person-vcard"></i> Kandidat</a>
+                            </li>
+                        <?php } ?>
 
-                        <li class="nav-item">
-                            <a class="nav-link ps-2 <?php echo (isset($_GET['x']) && $_GET['x'] == 'kandidat') ? 'active link-light bg-info' : 'link-dark'; ?>" href="kandidat"><i class="bi bi-person-vcard"></i> Kandidat</a>
-                        </li>
+                        <?php if ($hasil['level'] == 1) { ?>
+                            <li class="nav-item">
+                                <a class="nav-link ps-2 <?php echo (isset($_GET['x']) && $_GET['x'] == 'siswa') ? 'active link-light bg-info' : 'link-dark'; ?>" href="siswa"><i class="bi bi-people"></i> Siswa</a>
+                            </li>
+                        <?php } ?>
 
-                        <li class="nav-item">
-                            <a class="nav-link ps-2 <?php echo (isset($_GET['x']) && $_GET['x'] == 'siswa') ? 'active link-light bg-info' : 'link-dark'; ?>" href="siswa"><i class="bi bi-people"></i> Siswa</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link ps-2 <?php echo (isset($_GET['x']) && $_GET['x'] == 'report') ? 'active link-light bg-info' : 'link-dark'; ?>" href="report"><i class="bi bi-receipt-cutoff"></i> Hasil Voting</a>
-                        </li>
-
+                        <?php if ($hasil['level'] == 1 || $hasil['level'] == 2) { ?>
+                            <li class="nav-item">
+                                <a class="nav-link ps-2 <?php echo (isset($_GET['x']) && $_GET['x'] == 'report') ? 'active link-light bg-info' : 'link-dark'; ?>" href="report"><i class="bi bi-receipt-cutoff"></i> Hasil Voting</a>
+                            </li>
+                        <?php } ?>
                     </ul>
                 </div>
             </div>

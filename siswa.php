@@ -2,13 +2,13 @@
 include "proses/connect.php";
 $query = mysqli_query($conn, "SELECT * FROM tb_user
     LEFT JOIN tb_kelas ON tb_kelas.id_kelas = tb_user.kelas
-    WHERE level LIKE '%3%' OR level LIKE '%4%'
+    WHERE level LIKE '%3%' OR level LIKE '%3%'
     GROUP BY id ORDER BY nama_kelas ASC");
 while ($record = mysqli_fetch_array($query)) {
     $result[] = $record;
 }
 
-$select_kelas = mysqli_query($conn, "SELECT id_kelas,nama_kelas FROM tb_kelas WHERE sebagai NOT LIKE '%Guru%'");
+$select_kelas = mysqli_query($conn, "SELECT id_kelas,nama_kelas FROM tb_kelas WHERE sebagai LIKE '%Siswa%'");
 ?>
 
 

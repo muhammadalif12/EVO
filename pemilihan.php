@@ -29,12 +29,7 @@ $hasil = mysqli_fetch_array($query);
     <!-- End Navbar -->
 
     <div class="container-lg">
-        <div class="row mb-5">
-
-            <!-- Sidebar -->
-            <?php include "sidebar.php" ?>
-            <!-- End Sidebar -->
-
+        <div class="mb-5">
             <!-- Content -->
             <?php
             include $page;

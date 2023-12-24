@@ -1,14 +1,10 @@
 <?php
 include "proses/connect.php";
-$query = mysqli_query($conn, "SELECT * FROM tb_user
-    LEFT JOIN tb_kelas ON tb_kelas.id_kelas = tb_user.kelas
-    WHERE level LIKE '%3%'
-    GROUP BY id ORDER BY nama_kelas ASC");
+$query = mysqli_query($conn, "SELECT * FROM tb_kandidat
+    GROUP BY id ORDER BY nomor_urut ASC");
 while ($record = mysqli_fetch_array($query)) {
     $result[] = $record;
 }
-
-$select_kelas = mysqli_query($conn, "SELECT id_kelas,nama_kelas FROM tb_kelas WHERE sebagai NOT LIKE '%Guru%'");
 ?>
 
 
@@ -32,24 +28,34 @@ $select_kelas = mysqli_query($conn, "SELECT id_kelas,nama_kelas FROM tb_kelas WH
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form class="needs-validation" novalidate action="proses/proses_input_user.php" method="POST">
+                            <form class="needs-validation" novalidate action="proses/proses_input_kandidat.php" method="POST" enctype="multipart/form-data">
                                 <div class="row">
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-4">
                                         <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="floatingInput" placeholder="NISN" name="nomor_pengenal" required>
-                                            <label for="floatingInput">NISN</label>
+                                            <input type="text" class="form-control" id="floatingInput" placeholder="No Urut" name="nomor_urut" required>
+                                            <label for="floatingInput">No Urut</label>
                                             <div class="invalid-feedback">
-                                                Masukkan nisn.
+                                                Masukkan No Urut.
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-4">
                                         <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="floatingInput" placeholder="Name" name="nama" required>
-                                            <label for="floatingInput">Nama</label>
+                                            <input type="text" class="form-control" id="floatingInput" placeholder="Name Ketua" name="nama_ketua" required>
+                                            <label for="floatingInput">Nama Ketua</label>
                                             <div class="invalid-feedback">
-                                                Masukkan nama.
+                                                Masukkan nama ketua.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="floatingInput" placeholder="Name Wakil Ketua" name="nama_wakil" required>
+                                            <label for="floatingInput">Nama Wakil Ketua</label>
+                                            <div class="invalid-feedback">
+                                                Masukkan nama wakil ketua.
                                             </div>
                                         </div>
                                     </div>
@@ -57,51 +63,43 @@ $select_kelas = mysqli_query($conn, "SELECT id_kelas,nama_kelas FROM tb_kelas WH
 
                                 <div class="row">
                                     <div class="col-lg-6">
-                                        <div class="form-floating mb-3">
-                                            <select class="form-select" aria-label="Default select example" name="jenis_kelamin" required>
-                                                <option selected hidden value="">Pilih Jenis Kelamin</option>
-                                                <option value="1">Laki - Laki</option>
-                                                <option value="2">Perempuan</option>
-                                            </select>
-                                            <label for="floatingInput">Jenis Kelamin</label>
+                                        <div class="input-group mb-3">
+                                            <input type="file" class="form-control py-3" id="uploadfoto" placeholder="Foto Ketua" name="fotoketua" required>
                                             <div class="invalid-feedback">
-                                                Pilih jenis kelamin.
+                                                Masukkan file foto ketua.
                                             </div>
                                         </div>
                                     </div>
 
-                                    <input type="hidden" value="3" name="level">
-
                                     <div class="col-lg-6">
                                         <div class="form-floating mb-3">
-                                            <select name="kelas" id="" class="form-select" required>
-                                                <option selected hidden value="">Pilih Kelas</option>
-                                                <?php
-                                                foreach ($select_kelas as $value) {
-                                                    echo "<option value=" . $value['id_kelas'] . ">$value[nama_kelas]</option>";
-                                                }
-                                                ?>
-                                            </select>
-                                            <label for="kelas">Kelas</label>
+                                            <input type="file" class="form-control py-3" id="uploadfoto" placeholder="Foto Wakil" name="fotowakil" required>
                                             <div class="invalid-feedback">
-                                                Pilih kelas.
+                                                Masukkan file foto wakil ketua.
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="form-floating mb-3">
-                                            <input type="password" class="form-control" id="floatingInput" placeholder="Password" name="password" required>
-                                            <label for="floatingPassword">Password</label>
-                                        </div>
+                                <div class="form-floating mb-3">
+                                    <textarea id="" style="height: 100px;" class="form-control" placeholder="Visi" name="visi" required></textarea>
+                                    <label for="floatingInput">Visi</label>
+                                    <div class="invalid-feedback">
+                                        Masukkan visi.
+                                    </div>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <textarea id="" style="height: 100px;" class="form-control" placeholder="Misi" name="misi" required></textarea>
+                                    <label for="floatingInput">Misi</label>
+                                    <div class="invalid-feedback">
+                                        Masukkan misi.
                                     </div>
                                 </div>
 
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                                    <button type="submit" class="btn btn-info text-light" name="input_user_validate" value="12345">Tambah</button>
+                                    <button type="submit" class="btn btn-info text-light" name="input_kandidat_validate" value="12345">Tambah</button>
                                 </div>
                             </form>
                         </div>
@@ -116,86 +114,6 @@ $select_kelas = mysqli_query($conn, "SELECT id_kelas,nama_kelas FROM tb_kelas WH
             } else {
                 foreach ($result as $row) {
             ?>
-                    <!-- Modal View-->
-                    <div class="modal fade" id="ModalView<?php echo $row['id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-lg modal-fullscreen-md-down">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Detail Kandidat</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form class="needs-validation" novalidate action="proses/proses_input_user.php" method="POST">
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <div class="form-floating mb-3">
-                                                    <input readonly type="text" class="form-control" id="floatingInput" placeholder="NISN" name="nomor_pengenal" value="<?php echo $row['nomor_pengenal'] ?>">
-                                                    <label for="floatingInput">NISN</label>
-                                                    <div class="invalid-feedback">
-                                                        Masukkan nisn.
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-12">
-                                                <div class="form-floating mb-3">
-                                                    <input readonly type="text" class="form-control" id="floatingInput" placeholder="Name" name="nama" value="<?php echo $row['nama'] ?>">
-                                                    <label for="floatingInput">Nama</label>
-                                                    <div class="invalid-feedback">
-                                                        Masukkan nama.
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <div class="col-lg-12">
-                                                    <div class="form-floating mb-3">
-                                                        <input readonly type="text" class="form-control" id="floatingInput"  name="jenis_kelamin" value="<?php
-                                                    if ($row['jenis_kelamin'] == 1) {
-                                                        echo "Laki - Laki";
-                                                    } else if ($row['jenis_kelamin'] == 2) {
-                                                        echo "Perempuan";
-                                                    }
-                                                    ?>">
-                                                        <label for="floatingInput">Jenis Kelamin</label>
-                                                        <div class="invalid-feedback">
-                                                            Masukkan jenis kelamin.
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-6">
-                                                <div class="col-lg-12">
-                                                    <div class="form-floating mb-3">
-                                                        <input readonly type="text" class="form-control" id="floatingInput"  name="kelas" value="<?php
-                                                    foreach ($select_kelas as $value) {
-                                                        if ($row['kelas'] == $value['id_kelas']) {
-                                                            echo "$value[nama_kelas]";
-                                                        }
-                                                    }
-                                                    ?>">
-                                                        <label for="floatingInput">Kelas</label>
-                                                        <div class="invalid-feedback">
-                                                            Masukkan kelas.
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Modal View-->
-
                     <!-- Modal Edit-->
                     <div class="modal fade" id="ModalEdit<?php echo $row['id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg modal-fullscreen-md-down">
@@ -205,25 +123,36 @@ $select_kelas = mysqli_query($conn, "SELECT id_kelas,nama_kelas FROM tb_kelas WH
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form class="needs-validation" novalidate action="proses/proses_edit_user.php" method="POST">
-                                    <input type="hidden" value="<?php echo $row['id'] ?>" name="id">
+                                    <form class="needs-validation" novalidate action="proses/proses_edit_kandidat.php" method="POST" enctype="multipart/form-data">
+                                        <input type="hidden" value="<?php echo $row['id'] ?>" name="id">
                                         <div class="row">
-                                            <div class="col-lg-12">
+                                            <div class="col-lg-4">
                                                 <div class="form-floating mb-3">
-                                                    <input <?php echo ($row['nomor_pengenal'] == $_SESSION['nomor_pengenal_evo']) ? 'disabled' : ' ';  ?> type="text" class="form-control" id="floatingInput" placeholder="NISN" name="nomor_pengenal" value="<?php echo $row['nomor_pengenal'] ?>" required>
-                                                    <label for="floatingInput">NISN</label>
+                                                    <input type="text" class="form-control" id="floatingInput" placeholder="No Urut" name="nomor_urut" value="<?php echo $row['nomor_urut'] ?>" required>
+                                                    <label for="floatingInput">No Urut</label>
                                                     <div class="invalid-feedback">
-                                                        Masukkan nisn.
+                                                        Masukkan No Urut.
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <div class="col-lg-12">
+                                            <div class="col-lg-4">
                                                 <div class="form-floating mb-3">
-                                                    <input type="text" class="form-control" id="floatingInput" placeholder="Name" name="nama" value="<?php echo $row['nama'] ?>" required>
-                                                    <label for="floatingInput">Nama</label>
+                                                    <input type="text" class="form-control" id="floatingInput" placeholder="Name Ketua" name="nama_ketua" value="<?php echo $row['nama_ketua'] ?>" required>
+                                                    <label for="floatingInput">Nama Ketua</label>
                                                     <div class="invalid-feedback">
-                                                        Masukkan nama.
+                                                        Masukkan nama ketua.
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-4">
+                                                <div class="form-floating mb-3">
+
+                                                    <input type="text" class="form-control" id="floatingInput" placeholder="Name Wakil Ketua" name="nama_wakil" value="<?php echo $row['nama_wakil'] ?>" required>
+                                                    <label for="floatingInput">Nama Wakil Ketua</label>
+                                                    <div class="invalid-feedback">
+                                                        Masukkan nama wakil ketua.
                                                     </div>
                                                 </div>
                                             </div>
@@ -231,52 +160,43 @@ $select_kelas = mysqli_query($conn, "SELECT id_kelas,nama_kelas FROM tb_kelas WH
 
                                         <div class="row">
                                             <div class="col-lg-6">
-                                                <div class="form-floating mb-3">
-                                                    <select class="form-select" aria-label="Default select example" name="jenis_kelamin" required>
-                                                    <?php
-                                                        $data = array("Laki - Laki", "Perempuan");
-                                                        foreach ($data as $key => $value) {
-                                                            if ($row['jenis_kelamin'] == $key + 1) {
-                                                                echo "<option selected value=" . ($key + 1) . ">$value</option>";
-                                                            } else {
-                                                                echo "<option value=" . ($key + 1) . ">$value</option>";
-                                                            }
-                                                        }
-                                                        ?>
-                                                    </select>
-                                                    <label for="floatingInput">Jenis Kelamin</label>
+                                                <div class="input-group mb-3">
+                                                    <input type="file" class="form-control py-3" id="uploadfoto" placeholder="Foto Ketua" name="fotoketua">
                                                     <div class="invalid-feedback">
-                                                        Pilih jenis kelamin.
+                                                        Masukkan file foto ketua.
                                                     </div>
                                                 </div>
                                             </div>
 
-
                                             <div class="col-lg-6">
                                                 <div class="form-floating mb-3">
-                                                    <select name="kelas" id="" class="form-select" required>
-                                                        <option selected hidden value="">Pilih Kelas</option>
-                                                        <?php
-                                                        foreach ($select_kelas as $value) {
-                                                            if ($row['kelas'] == $value['id_kelas']) {
-                                                                echo "<option selected value=" . $value['id_kelas'] . " >$value[nama_kelas]</option>";
-                                                            } else {
-                                                                echo "<option value=" . $value['id_kelas'] . ">$value[nama_kelas]</option>";
-                                                            }
-                                                        }
-                                                        ?>
-                                                    </select>
-                                                    <label for="kelas">Kelas</label>
+                                                    <input type="file" class="form-control py-3" id="uploadfoto" placeholder="Foto Wakil" name="fotowakil">
                                                     <div class="invalid-feedback">
-                                                        Pilih kelas.
+                                                        Masukkan file foto wakil ketua.
                                                     </div>
                                                 </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-floating mb-3">
+                                            <textarea id="" style="height: 100px;" class="form-control" placeholder="Visi" name="visi" required><?php echo $row['visi'] ?></textarea>
+                                            <label for="floatingInput">Visi</label>
+                                            <div class="invalid-feedback">
+                                                Masukkan visi.
+                                            </div>
+                                        </div>
+
+                                        <div class="form-floating mb-3">
+                                            <textarea id="" style="height: 100px;" class="form-control" placeholder="Misi" name="misi" required><?php echo $row['misi'] ?></textarea>
+                                            <label for="floatingInput">Misi</label>
+                                            <div class="invalid-feedback">
+                                                Masukkan misi.
                                             </div>
                                         </div>
 
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                                            <button type="submit" class="btn btn-info text-light" name="edit_user_validate" value="12345">Ubah</button>
+                                            <button type="submit" class="btn btn-info text-light" name="edit_kandidat_validate" value="12345">Tambah</button>
                                         </div>
                                     </form>
                                 </div>
@@ -294,20 +214,16 @@ $select_kelas = mysqli_query($conn, "SELECT id_kelas,nama_kelas FROM tb_kelas WH
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form class="needs-validation" novalidate action="proses/proses_delete_user.php" method="POST">
-                                        <input type="hidden" value="<?php echo $row['nomor_pengenal'] ?>" name="nomor_pengenal">
-                                        <div class="col-lg-12">
-                                            <?php
-                                            if ($row['nomor_pengenal'] == $_SESSION['nomor_pengenal_evo']) {
-                                                echo "<div class='alert alert-danger'>Anda tidak dapat menghapus akun sendiri </div>";
-                                            } else {
-                                                echo "<p class='text-center'>Apakah kamu ingin menghapus siswa <br><b>$row[nomor_pengenal] / $row[nama]</b></p>";
-                                            }
-                                            ?>
+                                    <form class="needs-validation" novalidate action="proses/proses_delete_kandidat.php" method="POST">
+                                        <input type="hidden" value="<?php echo $row['id'] ?>" name="id">
+                                        <input type="hidden" value="<?php echo $row['fotoketua'] ?>" name="fotoketua">
+                                        <input type="hidden" value="<?php echo $row['fotowakil'] ?>" name="fotowakil">
+                                        <div class="col-lg-12 mb-3">
+                                            Apakah Anda Ingin Menghapus Kandidat No. Urut <b> <?php echo $row['nomor_urut'] ?></b>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                            <button type="submit" class="btn btn-danger" name="hapus_user_validate" value="12345" <?php echo ($row['nomor_pengenal'] == $_SESSION['nomor_pengenal_evo']) ? 'disabled' : ' '; ?>>Hapus</button>
+                                            <button type="submit" class="btn btn-danger" name="hapus_kandidat_validate" value="12345">Hapus</button>
                                         </div>
                                     </form>
                                 </div>
@@ -316,82 +232,47 @@ $select_kelas = mysqli_query($conn, "SELECT id_kelas,nama_kelas FROM tb_kelas WH
                     </div>
                     <!-- End Modal Delete-->
 
-                    <!-- Modal Reset Password-->
-                    <div class="modal fade" id="ModalResetPassword<?php echo $row['id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-md modal-fullscreen-md-down">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Reset Password</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <?php
+                }
+            }
+            if (empty($result)) {
+            } else {
+                echo '<div class="row">';
+                foreach ($result as $row) {
+                ?>
+                    <div class="col-lg-6 mb-2 mt-3">
+                        <div class="card" style="height: 100%;">
+                            <div class="card-body">
+                                <h1><?php echo $row['nomor_urut'] ?></h1>
+                                <div class="text-center">
+                                    <div style="width: 200px; display: inline-block;">
+                                        <img src="assets/img/<?php echo $row['fotoketua'] ?>" class="img-thumbnail alight-center" alt="...">
+                                    </div>
+                                    <div style="width: 200px; display: inline-block;">
+                                        <img src="assets/img/<?php echo $row['fotowakil'] ?>" class="img-thumbnail alight-center" alt="...">
+                                    </div>
                                 </div>
-                                <div class="modal-body">
-                                    <form class="needs-validation" novalidate action="proses/proses_reset_password.php" method="POST">
-                                        <input type="hidden" value="<?php echo $row['nomor_pengenal'] ?>" name="nomor_pengenal">
-                                        <div class="col-lg-12">
-                                            <?php
-                                            if ($row['nomor_pengenal'] == $_SESSION['nomor_pengenal_evo']) {
-                                                echo "<div class='alert alert-danger'>Anda tidak dapat mengreset password sendiri </div>";
-                                            } else {
-                                                echo "<p class='text-center'>Apakah kamu ingin mengreset password siswa <br><b>$row[nomor_pengenal] / $row[nama]</b></p>";
-                                            }
-                                            ?>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                            <button type="submit" class="btn btn-success" name="reset_validate" value="12345" <?php echo ($row['nomor_pengenal'] == $_SESSION['nomor_pengenal_evo']) ? 'disabled' : ' '; ?>>Reset Password</button>
-                                        </div>
-                                    </form>
+                                <h4 class="card-title text-center mt-1"><?php echo $row['nama_ketua'] ?> - <?php echo $row['nama_wakil'] ?></h4>
+                                <h5 class="text-start">VISI :</h5>
+                                <p class="card-text"><?php echo nl2br($row['visi']) ?></p>
+                                <h5 class="text-start">MISI :</h5>
+                                <p class="card-text"><?php echo nl2br($row['misi']) ?></p>
+
+                            </div>
+                            <div class="card-footer border-0 bg-transparent">
+                                <div class="text-center">
+                                    <button class="btn btn-warning text-light btn-sm mb-1" style="width: 49%;" data-bs-toggle="modal" data-bs-target="#ModalEdit<?php echo $row['id'] ?>"><i class="bi bi-pencil-square"></i></button>
+                                    <button class="btn btn-danger btn-sm mb-1" style="width: 49%;" data-bs-toggle="modal" data-bs-target="#ModalDelete<?php echo $row['id'] ?>"><i class="bi bi-trash3"></i></button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- End Modal Reset Password-->
 
-                <?php
+            <?php
                 }
-
-                ?>
-                <div class="table-responsive text-nowrap">
-                    <table class="table table-bordered mt-3">
-                        <thead>
-                            <tr class="text-nowrap">
-                                <th scope="col">No</th>
-                                <th scope="col">No Urut</th>
-                                <th scope="col">Nama</th>
-                                <th scope="col">Kelas</th>
-                                <th scope="col">Jenis Kelamin</th>
-                                <th scope="col">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            $no = 1;
-                            foreach ($result as $row) {
-                            ?>
-                                <tr>
-                                    <th scope="row"><?php echo $no++ ?></th>
-                                    <td><?php echo $row['nomor_pengenal'] ?></td>
-                                    <td><?php echo $row['nama'] ?></td>
-                                    <td><?php echo $row['nama_kelas'] ?></td>
-                                    <td><?php
-                                        if ($row['jenis_kelamin'] == 1) {
-                                            echo "Laki - Laki";
-                                        } else if ($row['jenis_kelamin'] == 2) {
-                                            echo "Perempuan";
-                                        }
-                                        ?></td>
-                                    <td class="d-flex">
-                                        <button class="btn btn-primary text-light btn-sm me-1" data-bs-toggle="modal" data-bs-target="#ModalView<?php echo $row['id'] ?>"><i class="bi bi-eye"></i></button>
-                                        <button class="btn btn-warning text-light btn-sm me-1" data-bs-toggle="modal" data-bs-target="#ModalEdit<?php echo $row['id'] ?>"><i class="bi bi-pencil-square"></i></button>
-                                        <button class="btn btn-danger btn-sm me-1" data-bs-toggle="modal" data-bs-target="#ModalDelete<?php echo $row['id'] ?>"><i class="bi bi-trash3"></i></button>
-                                        <button class="btn btn-secondary btn-sm " data-bs-toggle="modal" data-bs-target="#ModalResetPassword<?php echo $row['id'] ?>"><i class="bi bi-key"></i></button>
-                                    </td>
-                                </tr>
-                            <?php } ?>
-                        </tbody>
-                    </table>
-                </div>
-            <?php } ?>
+                echo '</div>';
+            }
+            ?>
         </div>
     </div>
 </div>

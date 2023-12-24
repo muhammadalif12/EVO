@@ -1,3 +1,10 @@
+<?php 
+    // session_start();
+    if(!empty($_SESSION['nomor_pengenal_evo'])) {
+        header('location:home');
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
 
@@ -121,7 +128,15 @@
       <button class="btn btn-primary w-100 py-2" type="submit" name="submit_validate" value="abc">
         Login
       </button>
-      <p class="mt-5 mb-3 text-body-secondary">NISN/NIP:admin & Password:admin</p>
+      <p class="mt-5">Admin</p>
+      <p class="text-start">NISN/NIP : admin</p>
+      <p class="text-start">Password : admin</p>
+      <p>Guru</p>
+      <p class="text-start">NISN/NIP : 198908282018031001</p>
+      <p class="text-start">Password : smpnegeri2lhokseumawe</p>
+      <p>Siswa</p>
+      <p class="text-start">NISN/NIP : 0040512494</p>
+      <p class="text-start">Password : smpnegeri2lhokseumawe</p>
       <p class="mt-5 mb-3 text-body-secondary">Copyright © 2023 by EVO.</p>
     </form>
   </main>

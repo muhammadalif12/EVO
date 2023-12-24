@@ -8,14 +8,14 @@ while ($record = mysqli_fetch_array($query)) {
     $result[] = $record;
 }
 
-$select_kelas = mysqli_query($conn, "SELECT id_kelas,nama_kelas FROM tb_kelas WHERE id_kelas NOT LIKE '%0%'");
+$select_kelas = mysqli_query($conn, "SELECT id_kelas,nama_kelas FROM tb_kelas WHERE sebagai LIKE '%guru%'");
 ?>
 
 
 <div class="col-lg-9 mt-2">
     <div class="card">
         <div class="card-header">
-            Data Siswa
+            Data Guru
         </div>
         <div class="card-body">
             <div class="row">
@@ -32,14 +32,14 @@ $select_kelas = mysqli_query($conn, "SELECT id_kelas,nama_kelas FROM tb_kelas WH
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form class="needs-validation" novalidate action="proses/proses_input_siswa.php" method="POST">
+                            <form class="needs-validation" novalidate action="proses/proses_input_guru.php" method="POST">
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="floatingInput" placeholder="NISN/NIP" name="nomor_pengenal" required>
-                                            <label for="floatingInput">NISN</label>
+                                            <input type="text" class="form-control" id="floatingInput" placeholder="NIP" name="nomor_pengenal" required>
+                                            <label for="floatingInput">NIP</label>
                                             <div class="invalid-feedback">
-                                                Masukkan NISN.
+                                                Masukkan NIP.
                                             </div>
                                         </div>
                                     </div>
@@ -70,21 +70,21 @@ $select_kelas = mysqli_query($conn, "SELECT id_kelas,nama_kelas FROM tb_kelas WH
                                         </div>
                                     </div>
 
-                                    <input type="hidden" value="4" name="level">
+                                    <input type="hidden" value="2" name="level">
 
                                     <div class="col-lg-6">
                                         <div class="form-floating mb-3">
                                             <select name="kelas" id="" class="form-select" required>
-                                                <option selected hidden value="">Pilih Kelas</option>
+                                                <option selected hidden value="">Pilih Tugas</option>
                                                 <?php
                                                 foreach ($select_kelas as $value) {
                                                     echo "<option value=" . $value['id_kelas'] . ">$value[nama_kelas]</option>";
                                                 }
                                                 ?>
                                             </select>
-                                            <label for="kelas">Kelas</label>
+                                            <label for="kelas">Sebagai</label>
                                             <div class="invalid-feedback">
-                                                Pilih kelas.
+                                                Pilih tugas.
                                             </div>
                                         </div>
                                     </div>
@@ -101,7 +101,7 @@ $select_kelas = mysqli_query($conn, "SELECT id_kelas,nama_kelas FROM tb_kelas WH
 
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                                    <button type="submit" class="btn btn-info text-light" name="input_siswa_validate" value="12345">Tambah</button>
+                                    <button type="submit" class="btn btn-info text-light" name="input_guru_validate" value="12345">Tambah</button>
                                 </div>
                             </form>
                         </div>
@@ -112,7 +112,7 @@ $select_kelas = mysqli_query($conn, "SELECT id_kelas,nama_kelas FROM tb_kelas WH
 
             <?php
             if (empty($result)) {
-                echo "<p class='text-center mt-2'>Siswa Kosong</p>";
+                echo "<p class='text-center mt-2'>Guru Kosong</p>";
             } else {
                 foreach ($result as $row) {
             ?>
@@ -125,14 +125,14 @@ $select_kelas = mysqli_query($conn, "SELECT id_kelas,nama_kelas FROM tb_kelas WH
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form class="needs-validation" novalidate action="proses/proses_input_siswa.php" method="POST">
+                                    <form class="needs-validation" novalidate action="proses/proses_input_guru.php" method="POST">
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <div class="form-floating mb-3">
-                                                    <input readonly type="text" class="form-control" id="floatingInput" placeholder="NISN/NIP" name="nomor_pengenal" value="<?php echo $row['nomor_pengenal'] ?>">
-                                                    <label for="floatingInput">NISN</label>
+                                                    <input readonly type="text" class="form-control" id="floatingInput" placeholder="NIP" name="nomor_pengenal" value="<?php echo $row['nomor_pengenal'] ?>">
+                                                    <label for="floatingInput">NIP</label>
                                                     <div class="invalid-feedback">
-                                                        Masukkan NISN.
+                                                        Masukkan NIP.
                                                     </div>
                                                 </div>
                                             </div>
@@ -205,15 +205,15 @@ $select_kelas = mysqli_query($conn, "SELECT id_kelas,nama_kelas FROM tb_kelas WH
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form class="needs-validation" novalidate action="proses/proses_edit_siswa.php" method="POST">
+                                    <form class="needs-validation" novalidate action="proses/proses_edit_guru.php" method="POST">
                                     <input type="hidden" value="<?php echo $row['id'] ?>" name="id">
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <div class="form-floating mb-3">
-                                                    <input <?php echo ($row['nomor_pengenal'] == $_SESSION['nomor_pengenal_evo']) ? 'disabled' : ' ';  ?> type="text" class="form-control" id="floatingInput" placeholder="NISN/NIP" name="nomor_pengenal" value="<?php echo $row['nomor_pengenal'] ?>" required>
-                                                    <label for="floatingInput">NISN</label>
+                                                    <input <?php echo ($row['nomor_pengenal'] == $_SESSION['nomor_pengenal_evo']) ? 'disabled' : ' ';  ?> type="text" class="form-control" id="floatingInput" placeholder="NIP" name="nomor_pengenal" value="<?php echo $row['nomor_pengenal'] ?>" required>
+                                                    <label for="floatingInput">NIP</label>
                                                     <div class="invalid-feedback">
-                                                        Masukkan NISN.
+                                                        Masukkan NIP.
                                                     </div>
                                                 </div>
                                             </div>
@@ -276,7 +276,7 @@ $select_kelas = mysqli_query($conn, "SELECT id_kelas,nama_kelas FROM tb_kelas WH
 
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                                            <button type="submit" class="btn btn-info text-light" name="edit_siswa_validate" value="12345">Ubah</button>
+                                            <button type="submit" class="btn btn-info text-light" name="edit_guru_validate" value="12345">Ubah</button>
                                         </div>
                                     </form>
                                 </div>
@@ -294,20 +294,20 @@ $select_kelas = mysqli_query($conn, "SELECT id_kelas,nama_kelas FROM tb_kelas WH
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form class="needs-validation" novalidate action="proses/proses_delete_user.php" method="POST">
+                                    <form class="needs-validation" novalidate action="proses/proses_delete_guru.php" method="POST">
                                         <input type="hidden" value="<?php echo $row['nomor_pengenal'] ?>" name="nomor_pengenal">
                                         <div class="col-lg-12">
                                             <?php
                                             if ($row['nomor_pengenal'] == $_SESSION['nomor_pengenal_evo']) {
                                                 echo "<div class='alert alert-danger'>Anda tidak dapat menghapus akun sendiri </div>";
                                             } else {
-                                                echo "<p class='text-center'>Apakah kamu ingin menghapus siswa <br><b>$row[nomor_pengenal] / $row[nama]</b></p>";
+                                                echo "<p class='text-center'>Apakah kamu ingin menghapus guru <br><b>$row[nomor_pengenal] / $row[nama]</b></p>";
                                             }
                                             ?>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                            <button type="submit" class="btn btn-danger" name="hapus_siswa_validate" value="12345" <?php echo ($row['nomor_pengenal'] == $_SESSION['nomor_pengenal_evo']) ? 'disabled' : ' '; ?>>Hapus</button>
+                                            <button type="submit" class="btn btn-danger" name="hapus_guru_validate" value="12345" <?php echo ($row['nomor_pengenal'] == $_SESSION['nomor_pengenal_evo']) ? 'disabled' : ' '; ?>>Hapus</button>
                                         </div>
                                     </form>
                                 </div>
@@ -325,20 +325,20 @@ $select_kelas = mysqli_query($conn, "SELECT id_kelas,nama_kelas FROM tb_kelas WH
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form class="needs-validation" novalidate action="proses/proses_reset_password.php" method="POST">
+                                    <form class="needs-validation" novalidate action="proses/proses_reset_password_guru.php" method="POST">
                                         <input type="hidden" value="<?php echo $row['nomor_pengenal'] ?>" name="nomor_pengenal">
                                         <div class="col-lg-12">
                                             <?php
                                             if ($row['nomor_pengenal'] == $_SESSION['nomor_pengenal_evo']) {
                                                 echo "<div class='alert alert-danger'>Anda tidak dapat mengreset password sendiri </div>";
                                             } else {
-                                                echo "<p class='text-center'>Apakah kamu ingin mengreset password siswa <br><b>$row[nomor_pengenal] / $row[nama]</b></p>";
+                                                echo "<p class='text-center'>Apakah kamu ingin mengreset password guru <br><b>$row[nomor_pengenal] / $row[nama]</b></p>";
                                             }
                                             ?>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                            <button type="submit" class="btn btn-success" name="reset_validate" value="12345" <?php echo ($row['nomor_pengenal'] == $_SESSION['nomor_pengenal_evo']) ? 'disabled' : ' '; ?>>Reset Password</button>
+                                            <button type="submit" class="btn btn-success" name="reset_password_guru_validate" value="12345" <?php echo ($row['nomor_pengenal'] == $_SESSION['nomor_pengenal_evo']) ? 'disabled' : ' '; ?>>Reset Password</button>
                                         </div>
                                     </form>
                                 </div>
@@ -356,9 +356,9 @@ $select_kelas = mysqli_query($conn, "SELECT id_kelas,nama_kelas FROM tb_kelas WH
                         <thead>
                             <tr class="text-nowrap">
                                 <th scope="col">No</th>
-                                <th scope="col">NISN</th>
+                                <th scope="col">NIP</th>
                                 <th scope="col">Nama</th>
-                                <th scope="col">Kelas</th>
+                                <th scope="col">Sebagai</th>
                                 <th scope="col">Jenis Kelamin</th>
                                 <th scope="col">Aksi</th>
                             </tr>
